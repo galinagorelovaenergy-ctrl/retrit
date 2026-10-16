@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#9eaf96">
+  <meta name="description" content="Программа «Новая точка энергии» в Адыгее: расслабление на ментальном, физическом и энергетическом уровнях. Тест на уровень тревоги, практики, проживание и питание.">
+  <title>Новая точка энергии — программа в Адыгее</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=Oranienbaum&family=Unbounded:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night: #111814;
+      --soil: #1c1814;
+      --birch: #efe6d4;
+      --sheet: #f7f0e2;
+      --rosehip: #c33b22;
+      --ochre: #c9893a;
+      --moss: #44513a;
+      --sage: #9eaf96;
+      --sage-2: #c5d2bc;
+      --sage-3: #e3eadc;
+      --leaf: #5f7a58;
+      --ink: #1b1713;
+      --mute: #6b6258;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Literata", Georgia, serif;
+      background: var(--sage-3);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--rosehip); color: #fff8ee; }
+
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      opacity: .22;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='a'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='.5'/%3E%3C/svg%3E");
+    }
+
+    /* ---- left rail ---- */
+    .rail {
+      position: fixed;
+      z-index: 40;
+      top: 0; left: 0; bottom: 0;
+      width: 92px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px 0;
+      background: var(--night);
+      color: #efe6d4;
+    }
+    .rail-mark {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      align-self: center;
+      font-family: "Oranienbaum", serif;
+      font-size: 18px;
+      letter-spacing: .06em;
+    }
+    .rail nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+      font-family: "Unbounded", sans-serif;
+      font-size: 10px;
+      letter-spacing: .14em;
+    }
+    .rail nav a {
+      opacity: .45;
+      transition: opacity .25s;
+    }
+    .rail nav a:hover,
+    .rail nav a.is-on { opacity: 1; color: #e8a070; }
+    .rail-date {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      align-self: center;
+      font-family: "Unbounded", sans-serif;
+      font-size: 9px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: #e8a070;
+    }
+
+    .page { margin-left: 92px; position: relative; }
+
+    .flora {
+      position: absolute;
+      top: 0;
+      width: min(280px, 26vw);
+      height: 1680px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: .72;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    .flora-left {
+      left: -30px;
+      background-image: url("https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=700&q=80");
+      background-position: left top;
+      -webkit-mask-image: linear-gradient(to right, #000 35%, transparent 88%);
+      mask-image: linear-gradient(to right, #000 35%, transparent 88%);
+      filter: saturate(.85) hue-rotate(18deg);
+    }
+    .flora-right {
+      right: -40px;
+      background-image: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=700&q=80");
+      background-position: right top;
+      -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 88%);
+      mask-image: linear-gradient(to left, #000 35%, transparent 88%);
+      filter: saturate(.9) hue-rotate(12deg);
+    }
+    .flora svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 36px;
+      background: color-mix(in srgb, var(--sage-3) 88%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(95, 122, 88, .16);
+    }
+    .wordmark {
+      font-family: "Oranienbaum", serif;
+      font-size: clamp(18px, 2.4vw, 28px);
+    }
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--ink);
+      background: transparent;
+      padding: 10px 14px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-family: "Unbounded", sans-serif;
+      font-size: 10px;
+      cursor: pointer;
+    }
+    .seal {
+      width: 72px; height: 72px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--rosehip);
+      color: #fff8ee;
+      font-family: "Unbounded", sans-serif;
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: center;
+      box-shadow: inset 0 0 0 5px rgba(255,248,238,.18);
+      transition: transform .4s var(--ease);
+    }
+    .seal:hover { transform: rotate(-8deg) scale(1.06); }
+
+    .mobile-nav { display: none; }
+
+    /* ---- hero ---- */
+    .hero {
+      position: relative;
+      min-height: calc(100svh - 70px);
+      padding: 20px 48px 80px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(158,175,150,.45), transparent 50%),
+        linear-gradient(180deg, #b7c7ae 0%, #d4dfcc 48%, #e7eee3 100%);
+    }
+    .watermark {
+      position: absolute;
+      right: -4vw;
+      top: 4vh;
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(120px, 22vw, 280px);
+      line-height: .72;
+      color: rgba(27,23,19,.07);
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 40px;
+      align-items: end;
+      min-height: 78vh;
+    }
+    .eyebrow {
+      font-family: "Unbounded", sans-serif;
+      font-size: 10px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--rosehip);
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-family: "Oranienbaum", serif;
+      font-weight: 400;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: .92;
+      letter-spacing: -.03em;
+      max-width: 10ch;
+      margin-bottom: 28px;
+    }
+    h1 i {
+      font-style: italic;
+      color: var(--rosehip);
+    }
+    .lead {
+      max-width: 38ch;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--mute);
+      margin-bottom: 32px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      font-size: 14px;
+      color: var(--moss);
+    }
+    .disc {
+      width: min(520px, 100%);
+      aspect-ratio: 1;
+      margin-left: auto;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,248,238,.18), transparent 40%),
+        url("https://images.unsplash.com/photo-1477414343800-2c2d4d80cecc?auto=format&fit=crop&w=1400&q=80")
+        50% 40% / cover no-repeat;
+      box-shadow: 40px 50px 0 rgba(196, 59, 34, .12);
+      position: relative;
+    }
+    .disc figcaption {
+      position: absolute;
+      left: -18px; bottom: 48px;
+      padding: 10px 14px;
+      background: var(--sheet);
+      transform: rotate(-8deg);
+      font-size: 12px;
+      box-shadow: 0 10px 30px rgba(27,23,19,.08);
+    }
+
+    /* ---- sheets ---- */
+    h2 {
+      font-family: "Oranienbaum", serif;
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.08;
+      margin: 10px 0 20px;
+    }
+    h3 { font-family: "Oranienbaum", serif; font-weight: 400; }
+    .sheet {
+      position: relative;
+      background: var(--sheet);
+      margin: 0 28px 28px;
+      padding: clamp(40px, 6vw, 88px) clamp(28px, 6vw, 80px);
+      box-shadow: 0 18px 50px rgba(27,23,19,.06);
+    }
+    .sheet-sage {
+      background: linear-gradient(180deg, #dce6d5 0%, #eef3e9 100%);
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(27,23,19,.08);
+      pointer-events: none;
+    }
+    .sheet-dark {
+      background: var(--night);
+      color: var(--birch);
+    }
+    .sheet-dark::before { border-color: rgba(239,230,212,.12); }
+    .sheet-moss { background: var(--moss); color: var(--birch); }
+    .sheet-moss::before { border-color: rgba(239,230,212,.14); }
+    .chapter {
+      font-family: "Unbounded", sans-serif;
+      font-size: 10px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--rosehip);
+    }
+    .sheet-dark .chapter,
+    .sheet-moss .chapter { color: #e8a070; }
+    .cols {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .prose p { margin-bottom: 16px; color: var(--mute); }
+    .sheet-dark .prose p,
+    .sheet-moss .prose p { color: rgba(239,230,212,.78); }
+    .list {
+      margin-top: 26px;
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+    .list li {
+      padding-left: 22px;
+      position: relative;
+    }
+    .list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--rosehip);
+      font-size: 11px;
+      top: 6px;
+    }
+
+    .polaroid {
+      width: min(420px, 100%);
+      padding: 14px 14px 48px;
+      background: #fffdf8;
+      transform: rotate(3.5deg);
+      box-shadow: 12px 18px 40px rgba(27,23,19,.12);
+    }
+    .polaroid .pic {
+      height: 380px;
+      background: url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1100&q=80") center / cover;
+    }
+    .polaroid span {
+      display: block;
+      margin-top: 14px;
+      font-style: italic;
+      text-align: center;
+      color: var(--mute);
+    }
+    .polaroid.left { transform: rotate(-4deg); margin-left: 8%; }
+
+    /* program as overflowing numbers */
+    .program { display: grid; gap: 0; }
+    .row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1.2fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-top: 1px dashed rgba(27,23,19,.2);
+      align-items: baseline;
+    }
+    .num {
+      font-family: "Unbounded", sans-serif;
+      font-size: 42px;
+      color: var(--rosehip);
+      letter-spacing: -.06em;
+      line-height: 1;
+    }
+    .row h3 { font-size: 28px; }
+    .row p { color: var(--mute); }
+
+    /* path */
+    .path {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: stretch;
+      margin-top: 48px;
+    }
+    .stop { padding: 8px 8px 8px 0; }
+    .stop h3 { font-size: 30px; margin: 8px 0 12px; }
+    .stop p { color: rgba(239,230,212,.75); font-size: 15px; }
+    .dash {
+      width: 40px;
+      border-top: 1px dashed rgba(239,230,212,.35);
+      margin-top: 28px;
+    }
+    .idx {
+      font-family: "Unbounded", sans-serif;
+      font-size: 11px;
+      letter-spacing: .2em;
+      color: #e8a070;
+    }
+
+    .methods {
+      margin-top: 54px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 48px;
+    }
+    .methods article {
+      padding: 20px 0;
+      border-top: 1px solid rgba(239,230,212,.14);
+    }
+    .methods h3 {
+      font-family: "Unbounded", sans-serif;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #e8a070;
+      margin-bottom: 8px;
+    }
+    .fineprint {
+      margin-top: 28px;
+      font-size: 13px;
+      color: rgba(239,230,212,.55);
+      max-width: 62ch;
+    }
+
+    .bonus {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .big {
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(90px, 14vw, 160px);
+      line-height: .8;
+      color: #e8a070;
+    }
+    .portrait {
+      height: 340px;
+      border-radius: 160px 160px 12px 12px;
+      background: url("https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=900&q=80") center / cover;
+    }
+
+    .place {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      min-height: 620px;
+      margin: 0 28px 28px;
+    }
+    .place-pic {
+      background:
+        linear-gradient(90deg, transparent 40%, rgba(17,24,20,.35)),
+        url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80")
+        center / cover;
+      min-height: 480px;
+    }
+    .place-copy {
+      background: var(--soil);
+      color: var(--birch);
+      padding: 56px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .place-copy p { color: rgba(239,230,212,.74); margin-bottom: 14px; }
+    .facts { display: grid; gap: 8px; margin: 16px 0 28px; font-size: 15px; }
+
+    .linkish {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--rosehip);
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 4px;
+      width: fit-content;
+    }
+    .sheet-dark .linkish,
+    .place-copy .linkish,
+    .sheet-moss .linkish { color: #e8a070; }
+
+    /* letter */
+    .letter-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; }
+    .letter {
+      background: #fffdf8;
+      color: var(--ink);
+      padding: 36px 32px 40px;
+      transform: rotate(-1.1deg);
+      box-shadow: 0 24px 60px rgba(0,0,0,.28);
+    }
+    .letter label {
+      display: block;
+      font-family: "Unbounded", sans-serif;
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--rosehip);
+      margin: 14px 0 6px;
+    }
+    .letter input,
+    .letter textarea {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid rgba(27,23,19,.2);
+      background: transparent;
+      padding: 8px 0 10px;
+      outline: none;
+    }
+    .letter textarea { min-height: 80px; resize: vertical; }
+    .send {
+      margin-top: 22px;
+      border: 0;
+      background: var(--night);
+      color: var(--birch);
+      padding: 14px 22px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .status { display: none; margin-top: 12px; font-size: 13px; color: var(--rosehip); }
+    .hint { margin-top: 12px; font-size: 12px; color: var(--mute); }
+
+    .price-block {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+    .sum {
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(48px, 8vw, 88px);
+      letter-spacing: -.06em;
+      line-height: 1;
+    }
+    .incl {
+      columns: 2;
+      gap: 28px;
+      list-style: none;
+      margin-top: 28px;
+      max-width: 640px;
+    }
+    .incl li { break-inside: avoid; padding: 7px 0; border-bottom: 1px solid rgba(27,23,19,.1); }
+
+    .faq-item { border-bottom: 1px solid rgba(27,23,19,.12); }
+    .faq-q {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 0;
+      border: 0;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: "Oranienbaum", serif;
+      font-size: 26px;
+    }
+    .faq-q b {
+      font-family: "Unbounded", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--rosehip);
+    }
+    .faq-a { display: none; padding: 0 40px 18px 0; color: var(--mute); }
+    .faq-item.open .faq-a { display: block; }
+
+    .harm-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 36px;
+    }
+    .harm {
+      padding-top: 18px;
+      border-top: 1px solid rgba(27,23,19,.14);
+    }
+    .harm h3 { font-size: 26px; margin-bottom: 10px; }
+    .harm p { color: var(--mute); font-size: 15px; }
+
+    .quiz { max-width: 720px; }
+    .quiz-progress {
+      font-family: "Unbounded", sans-serif;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--rosehip);
+      margin-bottom: 28px;
+    }
+    .q {
+      display: none;
+      animation: fade .35s var(--ease);
+    }
+    .q.on { display: block; }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+    .q h3 {
+      font-size: clamp(26px, 4vw, 38px);
+      margin-bottom: 22px;
+    }
+    .opts { display: grid; gap: 12px; }
+    .opts label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: "Unbounded", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: #142018;
+    }
+    .opt-0 { background: #cfe8b8; }
+    .opt-1 { background: #ffe08a; }
+    .opt-2 { background: #ffb36b; }
+    .opt-3 { background: #ff7a62; color: #2a0d08; }
+    .opts label:hover { transform: translateX(4px); }
+    .opts label:has(input:checked) {
+      box-shadow: 0 0 0 3px #142018;
+    }
+    .opts input { accent-color: #142018; width: 18px; height: 18px; }
+    .quiz-nav { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+    .quiz-nav button {
+      border: 0;
+      padding: 16px 26px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      cursor: pointer;
+    }
+    .quiz-next { background: #d6ff4a; color: #142018; }
+    .quiz-back { background: #ffffff; color: #142018; border: 2px solid #142018 !important; }
+
+    /* grounding practice */
+    .ground {
+      margin: 0 28px 28px;
+      min-height: 720px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 80%, #6f8a68 0%, #24352a 58%, #121a16 100%);
+      color: #eef6ea;
+      padding: clamp(40px, 6vw, 72px) clamp(22px, 5vw, 64px);
+    }
+    .ground-copy { position: relative; z-index: 2; max-width: 640px; }
+    .ground-copy h2 { color: #f4ffe8; }
+    .ground-copy p { color: rgba(238,246,234,.8); margin-bottom: 16px; }
+    .fx-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .pulse {
+      position: absolute;
+      left: 50%;
+      bottom: 8%;
+      width: 120px; height: 120px;
+      margin-left: -60px;
+      border: 2px solid rgba(214,255,74,.55);
+      border-radius: 50%;
+      animation: pulse 2.8s ease-out infinite;
+    }
+    .pulse:nth-child(2) { animation-delay: .9s; }
+    .pulse:nth-child(3) { animation-delay: 1.8s; }
+    @keyframes pulse {
+      from { transform: scale(.4); opacity: .8; }
+      to { transform: scale(4.2); opacity: 0; }
+    }
+    .footprints {
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+      display: flex;
+      gap: 40px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .foot {
+      width: 42px; height: 70px;
+      background: rgba(214,255,74,.85);
+      border-radius: 40% 40% 45% 45%;
+      animation: glow 1.6s ease-in-out infinite;
+      box-shadow: 0 0 28px rgba(214,255,74,.65);
+    }
+    .foot:last-child { transform: rotate(8deg); animation-delay: .3s; }
+    @keyframes glow {
+      0%, 100% { opacity: .45; filter: blur(0); }
+      50% { opacity: 1; filter: blur(.3px); }
+    }
+    .orbs {
+      position: relative;
+      height: 280px;
+      margin: 8px 0 24px;
+      z-index: 1;
+    }
+    .orb {
+      position: absolute;
+      z-index: 1;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #d6ff4a 40%, #5f7a58);
+      box-shadow: 0 0 30px rgba(214,255,74,.8);
+      border: 0;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+    .orb.found { transform: scale(.4); opacity: .25; pointer-events: none; }
+    @keyframes float {
+      50% { transform: translateY(-10px) scale(1.06); }
+    }
+    .body-map {
+      position: relative;
+      z-index: 2;
+      width: min(260px, 70vw);
+      margin: 18px 0 10px;
+    }
+    .zone {
+      fill: rgba(214,255,74,.18);
+      stroke: #d6ff4a;
+      stroke-width: 2;
+      cursor: pointer;
+      transition: fill .25s;
+    }
+    .zone:hover, .zone.on { fill: rgba(255,122,98,.72); }
+    .breath {
+      width: min(220px, 56vw);
+      aspect-ratio: 1;
+      margin: 20px 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214,255,74,.85), rgba(95,122,88,.15) 70%);
+      animation: breathe 6s ease-in-out infinite;
+      box-shadow: 0 0 80px rgba(214,255,74,.35);
+    }
+    @keyframes breathe {
+      0%, 100% { transform: scale(.72); opacity: .55; }
+      45% { transform: scale(1.12); opacity: 1; }
+    }
+    .g-btn {
+      position: relative;
+      z-index: 4;
+      margin-top: 18px;
+      border: 0;
+      padding: 16px 28px;
+      background: #d6ff4a;
+      color: #142018;
+      font-family: "Unbounded", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .g-btn[disabled] { opacity: .35; cursor: not-allowed; }
+    .g-note {
+      position: relative;
+      z-index: 2;
+      margin-top: 10px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #d6ff4a;
+    }
+
+    .minute {
+      margin: 0 28px 28px;
+      padding: clamp(48px, 7vw, 90px) clamp(24px, 6vw, 80px);
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(105deg, rgba(18, 28, 22, .55) 10%, rgba(18, 28, 22, .18) 55%, transparent 80%),
+        url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1800&q=80")
+        center / cover no-repeat;
+      color: #f4f7ef;
+    }
+    .minute::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      pointer-events: none;
+    }
+    .minute-inner { position: relative; z-index: 1; max-width: 560px; }
+    .minute h2 { color: #fff; }
+    .minute p { color: rgba(244,247,239,.84); margin-bottom: 16px; }
+    .pearl {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.65);
+      margin-top: 10px;
+      padding: 20px 36px;
+      border-radius: 999px;
+      color: #243028;
+      font-family: "Oranienbaum", serif;
+      font-size: clamp(18px, 2.4vw, 26px);
+      letter-spacing: .02em;
+      cursor: pointer;
+      background:
+        linear-gradient(120deg, #fff 0%, #f3e6d4 18%, #e7f0dc 38%, #fff 52%, #dce8f7 68%, #f7e8f0 84%, #fff 100%);
+      background-size: 220% 220%;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.95),
+        inset 0 -8px 18px rgba(180, 160, 140, .18),
+        0 14px 40px rgba(20, 32, 24, .28);
+      animation: pearl 7s ease infinite;
+      transition: transform .35s var(--ease), box-shadow .35s;
+    }
+    .pearl:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:
+        inset 0 1px 0 #fff,
+        0 22px 50px rgba(20, 32, 24, .35);
+    }
+    @keyframes pearl {
+      0% { background-position: 0% 40%; }
+      50% { background-position: 100% 60%; }
+      100% { background-position: 0% 40%; }
+    }
+
+    .minute-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 95;
+      background: #10160f;
+      color: #f4f7ef;
+    }
+    .minute-overlay.on { display: block; }
+    .minute-slides,
+    .minute-slide {
+      position: absolute;
+      inset: 0;
+    }
+    .minute-slides { z-index: 0; }
+    .minute-slide {
+      opacity: 0;
+      z-index: 0;
+      background-color: #1c3324;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.08);
+      transition: opacity 1.6s ease, transform 18s linear;
+    }
+    .minute-slide.on {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .minute-veil {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(8,12,9,.18) 0%, rgba(8,12,9,.12) 40%, rgba(8,12,9,.62) 100%);
+    }
+    .minute-ui {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px min(8vw, 80px) 48px;
+      max-width: 820px;
+    }
+    .minute-ui p.line {
+      font-family: "Oranienbaum", serif;
+      font-size: clamp(26px, 4.4vw, 42px);
+      line-height: 1.25;
+      min-height: 3.2em;
+      margin: 12px 0 28px;
+    }
+    .minute-bar {
+      width: min(320px, 70vw);
+      height: 2px;
+      background: rgba(255,255,255,.2);
+      margin-bottom: 22px;
+    }
+    .minute-bar i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #e8d5c0, #fff);
+    }
+    .minute-bar i.run { animation: fillbar 60s linear forwards; }
+    @keyframes fillbar { to { width: 100%; } }
+    .minute-close {
+      align-self: flex-start;
+      border: 1px solid rgba(255,255,255,.45);
+      background: transparent;
+      color: #fff;
+      padding: 10px 16px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    body.minute-on { overflow: hidden; }
+
+    .result { display: none; }
+    .result.on { display: block; }
+    .score {
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(56px, 10vw, 96px);
+      letter-spacing: -.06em;
+      line-height: .9;
+      color: var(--rosehip);
+      margin: 8px 0 18px;
+    }
+    .result p { margin-bottom: 14px; color: var(--mute); }
+    .sheet-dark .result p,
+    .sheet-dark .result .fineprint { color: rgba(239,230,212,.72); }
+    .sheet-dark .q h3 { color: var(--birch); }
+
+    .levels {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 20px;
+    }
+    .level {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 28px;
+      padding: 32px 0;
+      border-top: 1px dashed rgba(27,23,19,.2);
+    }
+    .level .num { font-size: 36px; }
+
+    footer {
+      margin-left: 92px;
+      padding: 28px 48px 40px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--mute);
+    }
+
+    @media (max-width: 980px) {
+      .rail { display: none; }
+      .page, footer { margin-left: 0; }
+      .menu-btn { display: block; }
+      .seal { display: none; }
+      .topbar { padding: 14px 18px; }
+      .hero { padding: 12px 18px 48px; }
+      .hero-grid, .cols, .row, .path, .methods, .bonus, .place, .letter-wrap, .harm-grid, .level {
+        grid-template-columns: 1fr;
+      }
+      .path .dash { display: none; }
+      .row { grid-template-columns: 70px 1fr; }
+      .row p { grid-column: 1 / -1; }
+      .sheet, .place, .ground, .minute { margin-inline: 12px; }
+      .pearl { width: 100%; text-align: center; }
+      .flora { opacity: .38; width: 120px; height: 900px; }
+      .incl { columns: 1; }
+      .disc { margin: 20px auto 0; width: min(340px, 86vw); }
+      .mobile-nav {
+        display: none;
+        position: absolute;
+        right: 12px; top: 58px;
+        background: var(--sheet);
+        padding: 16px;
+        min-width: 200px;
+        box-shadow: 0 16px 40px rgba(27,23,19,.12);
+        z-index: 40;
+      }
+      .mobile-nav.open { display: grid; gap: 12px; }
+      .topbar { position: sticky; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <aside class="rail" aria-label="Оглавление">
+    <a class="rail-mark" href="#home">Новая точка энергии</a>
+    <nav>
+      <a href="#about">01</a>
+      <a href="#test">02</a>
+      <a href="#ground">03</a>
+      <a href="#program">04</a>
+      <a href="#minute">05</a>
+      <a href="#place">06</a>
+      <a href="#contact">07</a>
+    </nav>
+    <div class="rail-date">17–22 ноября</div>
+  </aside>
+
+  <div class="page">
+    <div class="flora flora-left" aria-hidden="true"></div>
+    <div class="flora flora-right" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="wordmark" href="#home">Новая точка энергии</a>
+      <button class="menu-btn" type="button" id="menuToggle" aria-expanded="false">Меню</button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="#about">Напряжение</a>
+        <a href="#test">Тест тревоги</a>
+        <a href="#ground">Практика</a>
+        <a href="#minute">Минута в Адыгее</a>
+        <a href="#program">Программа</a>
+        <a href="#contact">Запись</a>
+      </nav>
+      <a class="seal" href="#test">пройти<br>тест</a>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="watermark">17<br>22</div>
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Адыгея · под Майкопом · пять суток</p>
+            <h1>Новая точка <i>энергии</i></h1>
+            <p class="lead">Только расслабленный организм молодеет и наполняется красотой и здоровьем. Вся программа посвящена расслаблению на ментальном, физическом и энергетическом уровнях.</p>
+            <p class="hero-meta">
+              <span>тест на уровень тревоги</span>
+              <span>мини-практика здесь и сейчас</span>
+              <span>три уровня расслабления</span>
+            </p>
+            <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
+              <a class="g-btn" href="#ground" style="display:inline-flex;text-decoration:none">Практика в теле</a>
+              <a class="quiz-back" href="#test" style="display:inline-flex;padding:16px 26px;font-family:Unbounded,sans-serif;font-size:15px;font-weight:600">Пройти тест</a>
+            </p>
+          </div>
+          <figure class="disc">
+            <figcaption>когда тело отпускает — появляется энергия</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="sheet sheet-sage" id="about">
+        <div class="cols">
+          <div class="prose">
+            <p class="chapter">01 / цена напряжения</p>
+            <h2>Жить в постоянной тревоге — опасно для тела</h2>
+            <p>Когда тревога и внутреннее напряжение становятся фоном жизни, организм не выходит из режима «тревога». Мышцы не отпускают, дыхание мельчает, сон не восстанавливает, а мысли не умолкают даже ночью.</p>
+            <p>Хронический стресс истощает нервную систему и связан с головными болями, скачками давления, проблемами пищеварения, гормональными сбоями, снижением иммунитета. Энергии не хватает даже на обычный день — так начинается выгорание.</p>
+            <p>Красота и молодость в таком состоянии не «добавляются» уходом: зажатое тело не молодеет. Только расслабленный организм наполняется здоровьем, мягкостью лица, силой и ясностью.</p>
+            <ul class="list">
+              <li>Постоянное напряжение держит тело в готовности к удару</li>
+              <li>Тревога крадёт сон, внимание и радость</li>
+              <li>Выгорание приходит не от «слабого характера», а от перегруза</li>
+              <li>Без расслабления ресурсы не восстанавливаются</li>
+            </ul>
+          </div>
+          <figure class="polaroid">
+            <div class="pic" role="img" aria-label="Лес"></div>
+            <span>рис. 1 — пока система не выключена, отдых не считается</span>
+          </figure>
+        </div>
+        <div class="harm-grid">
+          <article class="harm">
+            <h3>Заболевания</h3>
+            <p>Длительная тревога бьёт по сердцу, желудку, коже, щитовидной железе и суставам: тело платит за то, что разум не умеет остановиться.</p>
+          </article>
+          <article class="harm">
+            <h3>Нет энергии</h3>
+            <p>Ресурсы уходят на внутреннюю борьбу. Даже после выходных остаётся пустота: топливо сгорело в напряжении, а не в живой жизни.</p>
+          </article>
+          <article class="harm">
+            <h3>Выгорание</h3>
+            <p>Сначала «ещё чуть-чуть потерпеть», потом — апатия, раздражение, потеря смысла. Это не лень, это сигнал системы, которая давно на пределе.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="sheet sheet-dark" id="test">
+        <p class="chapter">02 / самопроверка</p>
+        <h2>Тест: какой у вас уровень тревоги и зажима</h2>
+        <p class="prose" style="max-width:54ch">Восемь вопросов о том, как часто напряжение живёт в теле и голове. Это не диагноз и не замена врачу — ориентир, чтобы честно увидеть свой фон.</p>
+
+        <form class="quiz" id="anxietyQuiz" style="margin-top:36px">
+          <p class="quiz-progress" id="quizProgress">вопрос 1 из 8</p>
+
+          <div class="q on" data-step="0">
+            <h3>Тело остаётся твёрдым даже когда вы «уже отдыхаете»?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="1">
+            <h3>Мысли крутятся по кругу и не отпускают вечером?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="2">
+            <h3>Трудно заснуть или утро начинается уже с внутренней гонки?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="3">
+            <h3>Ловите себя на зажатой челюсти, плечах или задержке дыхания?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="4">
+            <h3>Сил не хватает даже на простые дела, хотя день «вроде обычный»?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="5">
+            <h3>Беспокойство мешает радоваться и быть в моменте?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="6">
+            <h3>Кажется, что если перестать контролировать, всё развалится?</h3>
+            <div class="opts"></div>
+          </div>
+          <div class="q" data-step="7">
+            <h3>После дня не можете отпустить ни тело, ни голову?</h3>
+            <div class="opts"></div>
+          </div>
+
+          <div class="quiz-nav" id="quizNav">
+            <button class="quiz-back" type="button" id="quizBack" hidden>Назад</button>
+            <button class="quiz-next" type="button" id="quizNext">Дальше</button>
+          </div>
+        </form>
+
+        <div class="result" id="quizResult">
+          <p class="chapter">ваш ориентир</p>
+          <div class="score" id="quizScore"></div>
+          <h3 id="quizTitle" style="font-size:34px;margin-bottom:16px"></h3>
+          <p id="quizText"></p>
+          <p class="fineprint">Тест не ставит медицинский диагноз. При сильной тревоге, панических приступах или бессоннице обратитесь к врачу.</p>
+          <a class="linkish" href="#ground" style="margin-top:18px">сначала двухминутная практика →</a>
+        </div>
+      </section>
+
+      <section class="ground" id="ground">
+        <div class="fx-layer" id="groundFx"></div>
+        <div class="ground-copy">
+          <p class="chapter" style="color:#d6ff4a">03 / здесь и сейчас</p>
+          <p class="g-note" id="gStep">шаг 1 из 5</p>
+          <h2 id="gTitle">Мини-практика возвращения в тело</h2>
+          <p id="gHint">Две минуты. Никуда не уходите с страницы — просто следуйте подсказкам. Это тот же принцип, с которого начинается программа.</p>
+          <div id="gVisual"></div>
+          <button class="g-btn" type="button" id="gNext">Начать практику</button>
+        </div>
+      </section>
+
+      <section class="sheet" id="program">
+        <p class="chapter">04 / цель программы</p>
+        <h2>Расслабление на трёх уровнях — и больше ничего лишнего</h2>
+        <p class="prose" style="max-width:54ch">«Новая точка энергии» не про список процедур. Вся программа собрана вокруг одной задачи: выйти из хронического напряжения и дать организму состояние, в котором он сам молодеет, наполняется и восстанавливает здоровье.</p>
+        <div class="levels">
+          <article class="level">
+            <div class="num">I</div>
+            <div>
+              <h3>Ментальный уровень</h3>
+              <p>Снимаем внутреннюю гонку: крутящиеся мысли, контроль, привычку держать всё в голове. Практики внимания и работы с тревожными сценариями, чтобы разум перестал быть источником постоянного сигнала «опасность».</p>
+            </div>
+          </article>
+          <article class="level">
+            <div class="num">II</div>
+            <div>
+              <h3>Физический уровень</h3>
+              <p>Учим тело отпускать. Дыхание, мягкие телесные практики, тепло, пауза. Пока плечи, челюсть и диафрагма зажаты, красота и энергия не приходят — сначала должна уйти броня.</p>
+            </div>
+          </article>
+          <article class="level">
+            <div class="num">III</div>
+            <div>
+              <h3>Энергетический уровень</h3>
+              <p>Когда ум и тело отпускают, появляется внутренний ресурс: тепло, устойчивость, ощущение наполненности. Энергетические практики, образы и внимание помогают закрепить это состояние, а не «взбодриться через силу».</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="minute" id="minute">
+        <div class="minute-inner">
+          <p class="chapter" style="color:#e8d5c0">середина пути · одна минута</p>
+          <h2>Минута в Адыгее</h2>
+          <p>Виртуальное погружение в атмосферу интенсива: лес под Майкопом, пение птиц, журчание воды и тихая музыка. На минуту выйдите из суеты — прямо здесь.</p>
+          <button class="pearl" type="button" id="minuteStart">На минуту выйти из суеты</button>
+        </div>
+      </section>
+
+      <section class="sheet sheet-dark" id="practices">
+        <p class="chapter">05 / как это устроено</p>
+        <h2>Сначала увидеть зажим, потом отпустить, потом проверить</h2>
+        <p class="prose" style="max-width:54ch">Практики, диагностика и тепло нужны не «для галочки», а чтобы провести тело из тревоги в расслабление и заметить разницу.</p>
+        <div class="path">
+          <article class="stop">
+            <div class="idx">станция I</div>
+            <h3>Входная диагностика</h3>
+            <p>Метод Фолля: исходная точка, с которой потом можно сравнить повторную оценку и выбрать акценты практики.</p>
+          </article>
+          <div class="dash" aria-hidden="true"></div>
+          <article class="stop">
+            <div class="idx">станция II</div>
+            <h3>Расслабление</h3>
+            <p>Ментальные, телесные и энергетические практики, тепло, пауза в лесу. Формат зависит от самочувствия и противопоказаний.</p>
+          </article>
+          <div class="dash" aria-hidden="true"></div>
+          <article class="stop">
+            <div class="idx">станция III</div>
+            <h3>Итог</h3>
+            <p>Сопоставим два набора измерений и личные наблюдения. Это не медицинский диагноз.</p>
+          </article>
+        </div>
+        <div class="methods">
+          <article>
+            <h3>Метод Фолля</h3>
+            <p>Альтернативная оценка. Не подтверждает и не исключает заболевания органов.</p>
+          </article>
+          <article>
+            <h3>Су-Джок</h3>
+            <p>Точки кистей и стоп — с учётом состояния и ограничений участниц.</p>
+          </article>
+          <article>
+            <h3>Мокса</h3>
+            <p>Прогревание полынью. Формат определяет организатор, участие — только без противопоказаний.</p>
+          </article>
+          <article>
+            <h3>Тело и энергия</h3>
+            <p>Дыхание, образы, внимание. Способы саморегуляции, которые можно унести домой.</p>
+          </article>
+        </div>
+        <p class="fineprint">Интенсив не является лечением и не заменяет консультацию врача, обследование или терапию.</p>
+      </section>
+
+      <section class="sheet sheet-moss">
+        <div class="bonus">
+          <div>
+            <p class="chapter">бонус</p>
+            <div class="big">3×</div>
+          </div>
+          <div>
+            <h2>Когда тело отпускает, возвращаются молодость и красота</h2>
+            <p class="prose">Три процедуры аппаратного омоложения по методу Тихомирова Д. Д. — бонус. Главное условие красоты на программе — расслабление. Перед процедурами уточняются оборудование, протокол и противопоказания.</p>
+            <a class="linkish" href="#contact">спросить о методике →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="place" id="place">
+        <div class="place-pic" role="img" aria-label="Осенний лес"></div>
+        <div class="place-copy">
+          <p class="chapter">05 / география</p>
+          <h2>Лесной домик, пруды, воздух</h2>
+          <p>Под Майкопом нервной системе проще выключить режим тревоги: другой ритм, тишина, нет привычных триггеров города.</p>
+          <div class="facts">
+            <span>— проживание в лесном домике</span>
+            <span>— питание на время интенсива</span>
+            <span>— время для отдыха</span>
+            <span>— занятия по программе</span>
+          </div>
+          <a class="linkish" href="#contact">условия размещения →</a>
+        </div>
+      </section>
+
+      <section class="sheet" id="price">
+        <p class="chapter">стоимость</p>
+        <div class="price-block">
+          <h2>Пять дней, чтобы<br>выйти из напряжения</h2>
+          <div>
+            <div class="sum">50 000 ₽</div>
+            <p style="color:var(--mute)">17–22 ноября · Адыгея</p>
+          </div>
+        </div>
+        <ul class="incl">
+          <li>Пятидневная программа</li>
+          <li>Проживание в лесном домике</li>
+          <li>Питание</li>
+          <li>Расслабление на ментальном уровне</li>
+          <li>Расслабление тела</li>
+          <li>Энергетические практики</li>
+          <li>Лекции о тревоге и восстановлении</li>
+          <li>Оценка по методу Фолля дважды</li>
+          <li>Практики Су-Джок</li>
+          <li>Знакомство с мокса-прогреванием</li>
+          <li>Три процедуры омоложения</li>
+        </ul>
+        <p style="margin-top:20px;color:var(--mute);font-size:13px">Перед записью уточните заезд и выезд, размещение, питание, оплату и противопоказания.</p>
+      </section>
+
+      <section class="sheet sheet-dark" id="contact">
+        <div class="letter-wrap">
+          <div>
+            <p class="chapter">06 / письмо</p>
+            <h2>Если узнали себя в тесте — напишите</h2>
+            <p class="prose">Можно спросить, как программа помогает снять тревогу и напряжение, как устроены практики и проживание.</p>
+            <p class="prose"><strong>17–22 ноября</strong><br>Адыгея, под Майкопом<br>50 000 ₽</p>
+          </div>
+          <form class="letter" id="contactForm">
+            <p style="font-family:Oranienbaum,serif;font-size:28px">Черновик заявки</p>
+            <label for="name">Имя</label>
+            <input id="name" name="name" autocomplete="name" required>
+            <label for="userContact">Телефон или Telegram</label>
+            <input id="userContact" name="contact" required>
+            <label for="message">Вопрос, если есть</label>
+            <textarea id="message" name="message"></textarea>
+            <button class="send" type="submit">Подготовить письмо</button>
+            <div class="status" id="formStatus" role="status" aria-live="polite"></div>
+            <p class="hint">Форма соберёт текст. Перед отправкой вы сможете его проверить.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="sheet" id="faq">
+        <p class="chapter">на полях</p>
+        <h2>Вопросы, которые обычно задают</h2>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Что входит в 50 000 ₽? <b>+</b></button>
+          <div class="faq-a">Программа, проживание, питание, три процедуры омоложения, оценка по методу Фолля и занятия по расписанию.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Зачем диагностика дважды? <b>+</b></button>
+          <div class="faq-a">Чтобы сравнить два измерения и обсудить наблюдения. Метод Фолля не заменяет медицину.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Чему посвящена программа? <b>+</b></button>
+          <div class="faq-a">Расслаблению на ментальном, физическом и энергетическом уровнях. Вся линия практик собрана вокруг этой цели: только расслабленный организм молодеет и наполняется здоровьем.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Тест ставит диагноз? <b>+</b></button>
+          <div class="faq-a">Нет. Это самопроверка фона тревоги и зажима. При сильных симптомах нужна консультация врача. Программа не заменяет лечение.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Какие практики будут? <b>+</b></button>
+          <div class="faq-a">Практики для ума, тела и энергии, лекции, Су-Джок и прогревание — с учётом противопоказаний.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Это лечение? <b>+</b></button>
+          <div class="faq-a">Нет. Это практики и эстетический уход, а не обследование, терапия и не замена врачу.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Что взять с собой? <b>+</b></button>
+          <div class="faq-a">Организатор пришлёт список. Обычно: одежда для практик и леса, тёплая куртка, удобная обувь.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="minute-overlay" id="minuteOverlay" hidden>
+    <div class="minute-slides" id="minuteSlides">
+      <div class="minute-slide on" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1800&q=80')"></div>
+      <div class="minute-slide" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80')"></div>
+      <div class="minute-slide" style="background-image:url('https://images.unsplash.com/photo-1477414343800-2c2d4d80cecc?auto=format&fit=crop&w=1800&q=80')"></div>
+      <div class="minute-slide" style="background-image:url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=80')"></div>
+      <div class="minute-slide" style="background-image:url('https://images.unsplash.com/photo-1469474968181-d4a9d8e3e1d6?auto=format&fit=crop&w=1800&q=80')"></div>
+    </div>
+    <div class="minute-veil"></div>
+    <div class="minute-ui">
+      <p class="chapter" style="color:#e8d5c0">Минута в Адыгее</p>
+      <p class="line" id="minuteLine">Сейчас начнётся тишина.</p>
+      <div class="minute-bar"><i id="minuteBar"></i></div>
+      <button class="minute-close" type="button" id="minuteClose">Завершить раньше</button>
+    </div>
+  </div>
+
+  <footer>
+    <span>Новая точка энергии · Адыгея</span>
+    <span>© <span id="currentYear"></span></span>
+  </footer>
+
+  <script>
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const dots = [...document.querySelectorAll(".rail nav a")];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        dots.forEach((d) => d.classList.toggle("is-on", d.getAttribute("href") === "#" + e.target.id));
+      });
+    }, { threshold: .35 });
+    sections.forEach((s) => io.observe(s));
+
+    const toggle = document.getElementById("menuToggle");
+    const mobile = document.getElementById("mobileNav");
+    toggle.addEventListener("click", () => {
+      const open = mobile.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    mobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+      mobile.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    }));
+
+    document.querySelectorAll(".faq-q").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".faq-item");
+        const open = !item.classList.contains("open");
+        item.classList.toggle("open", open);
+        btn.setAttribute("aria-expanded", String(open));
+      });
+    });
+
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    const answers = ["Почти никогда", "Иногда", "Часто", "Почти всегда"];
+    const questions = [...document.querySelectorAll("#anxietyQuiz .q")];
+    const scores = Array(questions.length).fill(null);
+    let step = 0;
+    let quizSummary = "";
+
+    questions.forEach((q, qi) => {
+      const box = q.querySelector(".opts");
+      answers.forEach((label, value) => {
+        const id = "q" + qi + "v" + value;
+        box.insertAdjacentHTML("beforeend",
+          "<label class=\"opt-" + value + "\" for=\"" + id + "\"><input type=\"radio\" name=\"q" + qi + "\" id=\"" + id + "\" value=\"" + value + "\">" + label + "</label>"
+        );
+      });
+    });
+
+    const showStep = () => {
+      questions.forEach((q, i) => q.classList.toggle("on", i === step));
+      document.getElementById("quizProgress").textContent = "вопрос " + (step + 1) + " из " + questions.length;
+      document.getElementById("quizBack").hidden = step === 0;
+      document.getElementById("quizNext").textContent = step === questions.length - 1 ? "Узнать результат" : "Дальше";
+    };
+
+    document.getElementById("quizBack").addEventListener("click", () => {
+      if (step > 0) { step -= 1; showStep(); }
+    });
+
+    document.getElementById("quizNext").addEventListener("click", () => {
+      const chosen = document.querySelector("input[name=q" + step + "]:checked");
+      if (!chosen) {
+        questions[step].querySelector(".opts").style.outline = "1px solid #c33b22";
+        return;
+      }
+      questions[step].querySelector(".opts").style.outline = "";
+      scores[step] = Number(chosen.value);
+      if (step < questions.length - 1) {
+        step += 1;
+        showStep();
+        return;
+      }
+      const total = scores.reduce((a, b) => a + b, 0);
+      const max = questions.length * 3;
+      let title = "";
+      let text = "";
+      if (total <= 7) {
+        title = "Фон ещё держится";
+        text = "Тревога не захватила весь день, но зажимы уже есть. Это хороший момент не ждать выгорания: на программе тело и ум учатся отпускать до того, как система сядет.";
+      } else if (total <= 15) {
+        title = "Хроническое напряжение";
+        text = "Тревога стала привычным фоном. Энергия уходит на внутреннюю борьбу, отдых не восстанавливает. Пять дней расслабления на трёх уровнях — как раз про то, чтобы выключить этот режим, а не ещё раз «перетерпеть».";
+      } else {
+        title = "Организм давно в тревоге";
+        text = "Тело и голова почти не выходят из готовности к удару. Так копится истощение и выгорание. Программа не заменяет врача, но даёт пространство, чтобы наконец расслабиться на ментальном, физическом и энергетическом уровнях.";
+      }
+      quizSummary = "Тест тревоги: " + total + " из " + max + " — " + title;
+      document.getElementById("anxietyQuiz").style.display = "none";
+      const result = document.getElementById("quizResult");
+      result.classList.add("on");
+      document.getElementById("quizScore").textContent = total + " / " + max;
+      document.getElementById("quizTitle").textContent = title;
+      document.getElementById("quizText").textContent = text;
+      const note = document.getElementById("message");
+      if (note && !note.value) note.value = quizSummary;
+    });
+
+    const gTitle = document.getElementById("gTitle");
+    const gHint = document.getElementById("gHint");
+    const gStep = document.getElementById("gStep");
+    const gNext = document.getElementById("gNext");
+    const gVisual = document.getElementById("gVisual");
+    const gFx = document.getElementById("groundFx");
+    let gIndex = 0;
+    let needed = 0;
+
+    const renderGround = () => {
+      const steps = [
+        {
+          t: "Мини-практика возвращения в тело",
+          h: "Две минуты. Никуда не уходите со страницы — просто следуйте подсказкам.",
+          b: "Начать практику",
+          v: ""
+        },
+        {
+          t: "Почувствуйте стопы на полу",
+          h: "Сядьте или встаньте. Перенесите внимание вниз: пятки, пальцы, вес. Пол держит вас — ничего не нужно делать.",
+          b: "Стопы на полу",
+          v: "<div class=\"footprints\"><span class=\"foot\"></span><span class=\"foot\"></span></div>"
+        },
+        {
+          t: "Найдите глазами три предмета",
+          h: "Медленно оглянитесь. Нажмите на три светящиеся точки — как будто отмечаете три реальных предмета в комнате.",
+          b: "Я вижу три предмета",
+          v: "<div class=\"orbs\"><button class=\"orb\" type=\"button\" style=\"top:18%;left:12%\" aria-label=\"предмет 1\"></button><button class=\"orb\" type=\"button\" style=\"top:36%;right:16%\" aria-label=\"предмет 2\"></button><button class=\"orb\" type=\"button\" style=\"bottom:22%;left:40%\" aria-label=\"предмет 3\"></button></div>",
+          wait: 3
+        },
+        {
+          t: "Где в теле напряжение?",
+          h: "Просканируйте себя сверху вниз. Нажмите на место, которое откликается: челюсть, плечи, грудь или живот.",
+          b: "Чувствую это место",
+          v: "<svg class=\"body-map\" viewBox=\"0 0 120 240\" aria-label=\"Карта тела\"><circle class=\"zone\" data-z=\"челюсть\" cx=\"60\" cy=\"28\" r=\"18\"></circle><ellipse class=\"zone\" data-z=\"плечи\" cx=\"60\" cy=\"62\" rx=\"38\" ry=\"14\"></ellipse><ellipse class=\"zone\" data-z=\"грудь\" cx=\"60\" cy=\"100\" rx=\"28\" ry=\"22\"></ellipse><ellipse class=\"zone\" data-z=\"живот\" cx=\"60\" cy=\"142\" rx=\"26\" ry=\"20\"></ellipse></svg>",
+          wait: 1
+        },
+        {
+          t: "Дышите в это место",
+          h: "Круг расширяется на вдохе и сужается на выдохе. Представьте, что воздух касается зажима и делает его мягче.",
+          b: "Тело стало мягче",
+          v: "<div class=\"breath\" aria-hidden=\"true\"></div>"
+        },
+        {
+          t: "Вы уже здесь",
+          h: "Стопы, взгляд, тело, дыхание. Это и есть новая точка энергии — не усилие, а возвращение. На программе мы углубляем это состояние пять дней.",
+          b: "К программе",
+          v: ""
+        }
+      ];
+      const s = steps[gIndex];
+      gStep.textContent = "шаг " + (gIndex + 1) + " из " + steps.length;
+      gTitle.textContent = s.t;
+      gHint.textContent = s.h;
+      gNext.textContent = s.b;
+      gVisual.innerHTML = s.v;
+      gFx.innerHTML = gIndex === 1
+        ? "<span class=\"pulse\"></span><span class=\"pulse\"></span><span class=\"pulse\"></span>"
+        : "";
+      needed = s.wait || 0;
+      gNext.disabled = needed > 0;
+
+      gVisual.querySelectorAll(".orb").forEach((orb) => {
+        orb.addEventListener("click", () => {
+          if (orb.classList.contains("found")) return;
+          orb.classList.add("found");
+          needed -= 1;
+          if (needed <= 0) gNext.disabled = false;
+        });
+      });
+      gVisual.querySelectorAll(".zone").forEach((zone) => {
+        zone.addEventListener("click", () => {
+          gVisual.querySelectorAll(".zone").forEach((z) => z.classList.remove("on"));
+          zone.classList.add("on");
+          gHint.textContent = "Да. " + zone.getAttribute("data-z") + ". Оставайтесь там ещё несколько секунд.";
+          needed = 0;
+          gNext.disabled = false;
+        });
+      });
+    };
+
+    gNext.addEventListener("click", () => {
+      if (gNext.disabled) return;
+      if (gIndex >= 5) {
+        document.getElementById("program").scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+      gIndex += 1;
+      renderGround();
+    });
+
+    const minuteStart = document.getElementById("minuteStart");
+    const minuteOverlay = document.getElementById("minuteOverlay");
+    const minuteClose = document.getElementById("minuteClose");
+    const minuteLine = document.getElementById("minuteLine");
+    const minuteBar = document.getElementById("minuteBar");
+    const minuteSlides = [...document.querySelectorAll(".minute-slide")];
+    const minuteLines = [
+      "Закройте глаза на мгновение. Вы больше не в городе. Вы в Адыгее, среди леса под Майкопом.",
+      "Слышите, как дышит лес? Воздух влажный и прохладный. Земля держит стопы.",
+      "Рядом пруд. Вода почти неподвижна. Плечи могут опуститься сами, без усилия.",
+      "Здесь не нужно ничего решать. Только быть — тихо, как деревья.",
+      "Возьмите этот покой с собой. Минута кончится, а точка энергии останется."
+    ];
+    let minuteTimers = [];
+    let forest = null;
+
+    const createForest = (ctx) => {
+      const master = ctx.createGain();
+      master.gain.value = 0;
+      master.connect(ctx.destination);
+      master.gain.linearRampToValueAtTime(0.42, ctx.currentTime + 2.2);
+
+      const brown = (seconds) => {
+        const n = Math.floor(ctx.sampleRate * seconds);
+        const buf = ctx.createBuffer(1, n, ctx.sampleRate);
+        const ch = buf.getChannelData(0);
+        let last = 0;
+        for (let i = 0; i < n; i++) {
+          last = (last + (Math.random() * 2 - 1) * 0.02) / 1.02;
+          ch[i] = last * 3.2;
+        }
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.loop = true;
+        return src;
+      };
+
+      const wind = brown(4);
+      const windF = ctx.createBiquadFilter();
+      windF.type = "lowpass";
+      windF.frequency.value = 420;
+      const windG = ctx.createGain();
+      windG.gain.value = 0.38;
+      const windLfo = ctx.createOscillator();
+      windLfo.frequency.value = 0.07;
+      const windLg = ctx.createGain();
+      windLg.gain.value = 80;
+      windLfo.connect(windLg).connect(windF.frequency);
+      wind.connect(windF).connect(windG).connect(master);
+      wind.start();
+      windLfo.start();
+
+      const stream = brown(2.4);
+      const streamF = ctx.createBiquadFilter();
+      streamF.type = "bandpass";
+      streamF.frequency.value = 980;
+      streamF.Q.value = 0.55;
+      const streamG = ctx.createGain();
+      streamG.gain.value = 0.22;
+      const streamLfo = ctx.createOscillator();
+      streamLfo.frequency.value = 0.23;
+      const streamLg = ctx.createGain();
+      streamLg.gain.value = 220;
+      streamLfo.connect(streamLg).connect(streamF.frequency);
+      stream.connect(streamF).connect(streamG).connect(master);
+      stream.start();
+      streamLfo.start();
+
+      const brook = brown(1.6);
+      const brookF = ctx.createBiquadFilter();
+      brookF.type = "highpass";
+      brookF.frequency.value = 1400;
+      const brookG = ctx.createGain();
+      brookG.gain.value = 0.08;
+      brook.connect(brookF).connect(brookG).connect(master);
+      brook.start();
+
+      const padNotes = [130.81, 164.81, 196, 246.94];
+      const oscs = [windLfo, streamLfo];
+      padNotes.forEach((freq, i) => {
+        const o = ctx.createOscillator();
+        o.type = "sine";
+        o.frequency.value = freq / 2;
+        const g = ctx.createGain();
+        g.gain.value = 0.028;
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 0.035 + i * 0.012;
+        const lg = ctx.createGain();
+        lg.gain.value = 0.01;
+        lfo.connect(lg).connect(g.gain);
+        o.connect(g).connect(master);
+        o.start();
+        lfo.start();
+        oscs.push(o, lfo);
+      });
+
+      let alive = true;
+      const sources = [wind, stream, brook];
+
+      const gurgle = () => {
+        if (!alive) return;
+        const src = brown(0.4);
+        const f = ctx.createBiquadFilter();
+        f.type = "bandpass";
+        f.frequency.value = 520 + Math.random() * 700;
+        f.Q.value = 2.4;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.16, ctx.currentTime + 0.04);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.28);
+        src.connect(f).connect(g).connect(master);
+        src.start();
+        src.stop(ctx.currentTime + 0.32);
+        minuteTimers.push(setTimeout(gurgle, 700 + Math.random() * 1600));
+      };
+
+      const rustle = () => {
+        if (!alive) return;
+        const src = brown(0.5);
+        const f = ctx.createBiquadFilter();
+        f.type = "bandpass";
+        f.frequency.value = 1800 + Math.random() * 900;
+        f.Q.value = 0.8;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.1, ctx.currentTime + 0.08);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.7);
+        src.connect(f).connect(g).connect(master);
+        src.start();
+        src.stop(ctx.currentTime + 0.75);
+        minuteTimers.push(setTimeout(rustle, 5000 + Math.random() * 8000));
+      };
+
+      const tweet = (freq, t, dur, vol) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.setValueAtTime(freq, t);
+        o.frequency.exponentialRampToValueAtTime(Math.max(400, freq * (0.86 + Math.random() * 0.4)), t + dur);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(vol, t + 0.018);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g).connect(master);
+        o.start(t);
+        o.stop(t + dur + 0.02);
+      };
+
+      const birds = () => {
+        if (!alive) return;
+        const kind = Math.random();
+        const now = ctx.currentTime;
+        if (kind < 0.45) {
+          const base = 2200 + Math.random() * 1600;
+          const n = 2 + Math.floor(Math.random() * 4);
+          for (let i = 0; i < n; i++) tweet(base + Math.random() * 280, now + i * 0.09, 0.08 + Math.random() * 0.06, 0.045);
+        } else if (kind < 0.8) {
+          const a = 1400 + Math.random() * 600;
+          tweet(a, now, 0.16, 0.05);
+          tweet(a * 1.28, now + 0.18, 0.2, 0.045);
+        } else {
+          const base = 900 + Math.random() * 280;
+          tweet(base, now, 0.28, 0.035);
+          tweet(base * 0.78, now + 0.32, 0.34, 0.03);
+        }
+        minuteTimers.push(setTimeout(birds, 1400 + Math.random() * 3200));
+      };
+
+      minuteTimers.push(setTimeout(gurgle, 400));
+      minuteTimers.push(setTimeout(rustle, 2200));
+      minuteTimers.push(setTimeout(birds, 700));
+
+      return {
+        stop() {
+          alive = false;
+          master.gain.cancelScheduledValues(ctx.currentTime);
+          master.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.8);
+          setTimeout(() => {
+            try {
+              sources.forEach((s) => s.stop());
+              oscs.forEach((o) => o.stop());
+            } catch (e) {}
+            ctx.close();
+          }, 900);
+        }
+      };
+    };
+
+    const stopMinute = () => {
+      minuteTimers.forEach((id) => clearTimeout(id));
+      minuteTimers = [];
+      if (forest) { forest.stop(); forest = null; }
+      minuteOverlay.classList.remove("on");
+      minuteOverlay.hidden = true;
+      document.body.classList.remove("minute-on");
+      minuteBar.classList.remove("run");
+      minuteBar.style.width = "";
+    };
+
+    const startMinute = async () => {
+      if (minuteOverlay.classList.contains("on")) stopMinute();
+      minuteOverlay.hidden = false;
+      minuteOverlay.classList.add("on");
+      document.body.classList.add("minute-on");
+      minuteBar.classList.remove("run");
+      void minuteBar.offsetWidth;
+      minuteBar.classList.add("run");
+      minuteSlides.forEach((s, i) => s.classList.toggle("on", i === 0));
+      minuteLine.textContent = minuteLines[0];
+
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === "suspended") await ctx.resume();
+        forest = createForest(ctx);
+      } catch (e) {}
+
+      minuteLines.forEach((line, i) => {
+        if (i === 0) return;
+        minuteTimers.push(setTimeout(() => {
+          minuteLine.textContent = line;
+          minuteSlides.forEach((s, si) => s.classList.toggle("on", si === i));
+        }, i * 12000));
+      });
+      minuteTimers.push(setTimeout(stopMinute, 61000));
+    };
+
+    minuteStart.addEventListener("click", startMinute);
+    minuteClose.addEventListener("click", stopMinute);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && minuteOverlay.classList.contains("on")) stopMinute();
+    });
+
+    const ORGANIZER_EMAIL = "EMAIL_ORGANIZER";
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const name = document.getElementById("name").value.trim();
+      const contact = document.getElementById("userContact").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const body = [
+        "Здравствуйте! Хочу узнать подробнее о программе «Новая точка энергии».",
+        "",
+        "Имя: " + name,
+        "Телефон или Telegram: " + contact,
+        "Вопрос: " + (message || "Нет дополнительных вопросов"),
+        quizSummary ? quizSummary : "",
+        "",
+        "Программа: 17–22 ноября",
+        "Стоимость: 50 000 рублей"
+      ].join("\n");
+      status.style.display = "block";
+      if (!ORGANIZER_EMAIL || ORGANIZER_EMAIL === "EMAIL_ORGANIZER") {
+        status.textContent = "Демонстрационный режим: укажите почту организатора в ORGANIZER_EMAIL.";
+        return;
+      }
+      status.textContent = "Открываем почту. Проверьте письмо и нажмите «Отправить».";
+      location.href = "mailto:" + ORGANIZER_EMAIL
+        + "?subject=" + encodeURIComponent("Заявка: Новая точка энергии")
+        + "&body=" + encodeURIComponent(body);
+    });
+  </script>
+</body>
+</html>
